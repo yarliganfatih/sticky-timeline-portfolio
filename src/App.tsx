@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import data from "./assets/data.json";
 
-function App() {
-  const [count, setCount] = useState(0)
+type Item = {
+  id: number;
+  name: string;
+  count: number;
+};
+
+type SearchTerm = {
+  name?: string;
+  count?: number;
+};
+
+const App: React.FC = () => {
+  const [items, setItems] = useState<Item[]>(data);
+  const [searchTerm, setSearchTerm] = useState<SearchTerm>({});
+
+  const filterItems = (searchTerm: SearchTerm) => {
+    console.log(searchTerm);
+    const filtered = data.filter((item: Item) => {
+      let isMatch = true;
+      Object.entries(searchTerm).forEach(([key, value]) => {
+        if (
+          value &&
+          !item[key].toString().toLowerCase().includes(value.toString().toLowerCase())
+        ) {
+          isMatch = false;
+        }
+      });
+      return isMatch;
+    });
+    setItems(filtered);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setSearchTerm((prevSearchTerm) => ({ ...prevSearchTerm, [name]: value }));
+    filterItems({ ...searchTerm, [name]: value });
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <input
+        name="name"
+        type="text"
+        placeholder="Name"
+        onChange={handleChange}
+      />
+      <input
+        name="count"
+        type="number"
+        placeholder="Count"
+        onChange={handleChange}
+      />
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.name} - {item.count}
+          </li>
+        ))}
+      </ul>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
