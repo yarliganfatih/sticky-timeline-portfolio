@@ -5,6 +5,7 @@ type Item = {
   id: number;
   name: string;
   count: number;
+  [key: string]: string | number;
 };
 
 type SearchTerm = {
