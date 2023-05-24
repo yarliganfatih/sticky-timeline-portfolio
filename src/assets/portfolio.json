@@ -32,6 +32,7 @@
         {
             "id": 1,
             "title": "Lorem ipsum",
+            "fixed": true,
             "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis dolores minima voluptas deserunt quisquam, praesentium voluptates sit sint aspernatur aut vel tempore recusandae natus aperiam veritatis consequuntur! In, eos recusandae!",
             "category": "Hobby",
             "dateTag": "early 2023",
@@ -66,6 +67,7 @@
         {
             "id": 2,
             "title": "Lorem ipsum",
+            "fixed": false,
             "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis dolores minima voluptas deserunt quisquam, praesentium voluptates sit sint aspernatur aut vel tempore recusandae natus aperiam veritatis consequuntur! In, eos recusandae!",
             "category": "Experience",
             "dateTag": "in 2023",

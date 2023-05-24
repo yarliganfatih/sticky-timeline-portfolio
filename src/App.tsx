@@ -3,8 +3,9 @@ import portfolioData from "./assets/portfolio.json";
 import NavBoard from "./navBoard";
 
 type Timeline = {
-  [key: string]: string | number | Array<SkillTag> | Array<externalLink>;
+  [key: string]: string | number | boolean | Array<SkillTag> | Array<externalLink>;
   id: number;
+  fixed: boolean;
   title: string;
   content: string;
   category: string;
@@ -38,6 +39,11 @@ type SearchTerm = {
 };
 
 const App: React.FC = () => {
+  const [timelines, setTimelines] = useState<Timeline[]>(
+    portfolioData.timeline
+  );
+  const [searchTerm, setSearchTerm] = useState<SearchTerm>({});
+
   useEffect(() => {
     // jquery
     $(".read-more:not(.expanded)").each(function () {
@@ -47,12 +53,7 @@ const App: React.FC = () => {
       $(this).addClass("expanded");
     });
     $("a[href*=http]").attr("target", "_blank");
-  }, []);
-
-  const [timelines, setTimelines] = useState<Timeline[]>(
-    portfolioData.timeline
-  );
-  const [searchTerm, setSearchTerm] = useState<SearchTerm>({});
+  }, [timelines]);
 
   const orFilterItems = (searchTerm: SearchTerm) => {
     console.log(searchTerm);
@@ -66,6 +67,7 @@ const App: React.FC = () => {
         }
         return true;
       });
+      if(item.fixed) return true; // always visible
       return matches.includes(true);
     });
     setTimelines(filtered);
@@ -115,8 +117,8 @@ const App: React.FC = () => {
                   </a>
                 ))}
               </div>
-              <div className="read-more expanded">
-                <div className="textContent">{item.content}</div>
+              <div className={"read-more "+(item.content.length>550 ? '' : 'expanded')}>
+                <div className="textContent" dangerouslySetInnerHTML={{__html: item.content}}></div>
               </div>
             </div>
           </div>,
