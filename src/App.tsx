@@ -44,6 +44,26 @@ const App: React.FC = () => {
   );
   const [searchTerm, setSearchTerm] = useState<SearchTerm>({});
 
+  let skillHeap = [];
+  const pushSkillHeap = (skill: string = "x", col: number = 0, row: number = 0) => {
+    if (row) { // specific row
+      if (!skillHeap[col]) {
+        skillHeap[col] = [null, skill];
+        return 1;
+      }
+      skillHeap[col][row] = skill;
+      return row;
+    }
+    if (!skillHeap[col]) {
+      skillHeap[col] = [null, skill];
+      return 1;
+    }
+    row = skillHeap[col].indexOf(skill);
+    if (row != -1) return row;
+    skillHeap[col].push(skill);
+    return skillHeap[col].length - 1;
+  }
+
   useEffect(() => {
     // jquery
     $(".read-more:not(.expanded)").each(function () {
@@ -122,7 +142,12 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>,
-          item.skillTags.map((skillTag) => (
+          item.skillTags.map((skillTag) => {
+            let row = skillTag.y;
+            if(skillTag.sticky){
+              row = pushSkillHeap(skillTag.title, skillTag.x, skillTag.y);
+            }
+            return (
             <a
               style={
                 {
@@ -135,14 +160,14 @@ const App: React.FC = () => {
                 " col0" +
                 skillTag.x.toString() +
                 " row0" +
-                skillTag.y.toString() +
+                row.toString() +
                 (skillTag.sticky && " sticky") +
                 " preSticky skillSticky bounceSticky btn btn-primary-outline"
               }
             >
               {skillTag.title}
             </a>
-          )),
+          )}),
         ])}
         <div className="blankArea" style={{ height: 1000 }}></div>
         <div className="contentRouter" id="copyright"></div>

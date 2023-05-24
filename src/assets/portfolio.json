@@ -43,7 +43,7 @@
                     "progress": 75,
                     "sticky": true,
                     "x": 1,
-                    "y": 1,
+                    "y": 0,
                     "z": 1
                 },
                 {
@@ -52,7 +52,7 @@
                     "progress": 50,
                     "sticky": true,
                     "x": 2,
-                    "y": 1,
+                    "y": 0,
                     "z": 1
                 }
             ],
@@ -78,7 +78,7 @@
                     "progress": 50,
                     "sticky": true,
                     "x": 1,
-                    "y": 2,
+                    "y": 0,
                     "z": 1
                 },
                 {
@@ -87,7 +87,7 @@
                     "progress": 75,
                     "sticky": true,
                     "x": 2,
-                    "y": 1,
+                    "y": 0,
                     "z": 2
                 },
                 {
