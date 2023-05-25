@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import portfolioData from "./assets/portfolio.json";
 import NavBoard from "./navBoard";
+import $ from "jquery";
 
 type Timeline = {
   [key: string]: string | number | boolean | Array<SkillTag> | Array<externalLink>;
@@ -44,18 +45,18 @@ const App: React.FC = () => {
   );
   const [searchTerm, setSearchTerm] = useState<SearchTerm>({});
 
-  let skillHeap = [];
+  let skillHeap: (string | any[])[][] = [];
   const pushSkillHeap = (skill: string = "x", col: number = 0, row: number = 0) => {
     if (row) { // specific row
       if (!skillHeap[col]) {
-        skillHeap[col] = [null, skill];
+        skillHeap[col] = ["", skill];
         return 1;
       }
       skillHeap[col][row] = skill;
       return row;
     }
     if (!skillHeap[col]) {
-      skillHeap[col] = [null, skill];
+      skillHeap[col] = ["", skill];
       return 1;
     }
     row = skillHeap[col].indexOf(skill);
@@ -66,10 +67,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     // jquery
-    $(".read-more:not(.expanded)").each(function () {
+    $(".read-more:not(.expanded)").each(function (this: HTMLElement) {
       $(this).append('<span class="trigger">+ read more</span>');
     });
-    $(".read-more").click(function () {
+    $(".read-more").click(function (this: HTMLElement) {
       $(this).addClass("expanded");
     });
     $("a[href*=http]").attr("target", "_blank");
