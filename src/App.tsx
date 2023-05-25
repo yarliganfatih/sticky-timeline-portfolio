@@ -74,6 +74,36 @@ const App: React.FC = () => {
       $(this).addClass("expanded");
     });
     $("a[href*=http]").attr("target", "_blank");
+
+    // sticky bounce animations
+    var lastScrolled:Array<number> = [];
+    var lastAnimated:Array<number> = [];
+    $(".mainParent").scroll(function () {
+        $(".bounceSticky").each(function (index, item) {
+            //if(Math.abs(lastScrolled[index] - $(".skillSticky").eq(index).offset().top)<4){
+            if (lastScrolled[index] == $(".bounceSticky").eq(index).offset().top) {
+                if (!lastAnimated[index]) {
+                    $(".colTitle").eq($(this).attr("data-col")).addClass("animateShadowBottom")
+                        .on("animationend", function () {
+                            $(this).removeClass('animateShadowBottom');
+                        });
+                    $(".bounceSticky").eq(index)
+                        .addClass('animateBounce')
+                        .on("animationend", function () {
+                            $(this).removeClass('animateBounce');
+                        });
+                    lastAnimated[index] = 1;
+                }
+            } else {
+                lastScrolled[index] = $(".bounceSticky").eq(index).offset().top;
+                lastAnimated[index] = 0;
+            }
+        });
+        //console.log(lastScrolled);
+    });
+
+    // TODO scroll animations
+    
   }, [timelines]);
 
   const orFilterItems = (searchTerm: SearchTerm) => {
