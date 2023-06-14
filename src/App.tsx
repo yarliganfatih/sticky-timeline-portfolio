@@ -79,11 +79,11 @@ const App: React.FC = () => {
     var lastScrolled:Array<number> = [];
     var lastAnimated:Array<number> = [];
     $(".mainParent").scroll(function () {
-        $(".bounceSticky").each(function (index, item) {
+        $(".bounceSticky").each(function (index) {
             //if(Math.abs(lastScrolled[index] - $(".skillSticky").eq(index).offset().top)<4){
-            if (lastScrolled[index] == $(".bounceSticky").eq(index).offset().top) {
+            if (lastScrolled[index] == $(".bounceSticky").eq(index)?.offset()?.top) {
                 if (!lastAnimated[index]) {
-                    $(".colTitle").eq($(this).attr("data-col")).addClass("animateShadowBottom")
+                    $(".colTitle").eq(parseInt($(this).attr("data-col") ?? "0")).addClass("animateShadowBottom")
                         .on("animationend", function () {
                             $(this).removeClass('animateShadowBottom');
                         });
@@ -95,7 +95,7 @@ const App: React.FC = () => {
                     lastAnimated[index] = 1;
                 }
             } else {
-                lastScrolled[index] = $(".bounceSticky").eq(index).offset().top;
+                lastScrolled[index] = $(".bounceSticky").eq(index)?.offset()?.top ?? 0;
                 lastAnimated[index] = 0;
             }
         });
