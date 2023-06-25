@@ -46,8 +46,8 @@ const App: React.FC = () => {
   );
   const [searchTerm, setSearchTerm] = useState<SearchTerm>({});
 
-  let skillHeap: (string | any[])[][] = [];
-  const pushSkillHeap = (skill: string = "x", col: number = 0, row: number = 0) => {
+  const skillHeap: (string | number[])[][] = [];
+  const pushSkillHeap = (skill = "x", col = 0, row = 0) => {
     if (row) { // specific row
       if (!skillHeap[col]) {
         skillHeap[col] = ["", skill];
@@ -77,15 +77,16 @@ const App: React.FC = () => {
     $("a[href*=http]").attr("target", "_blank");
 
     // sticky bounce animations
-    var lastScrolled:Array<number> = [];
-    var lastAnimated:Array<number> = [];
+    const lastScrolled:Array<number> = [];
+    const lastAnimated:Array<number> = [];
     $(".mainParent").scroll(function () {
-        $(".bounceSticky").each(function (index, item) {
+        $(".bounceSticky").each(function (index) {
             //if(Math.abs(lastScrolled[index] - $(".skillSticky").eq(index).offset().top)<4){
-            if (lastScrolled[index] == $(".bounceSticky").eq(index).offset().top) {
+            if (lastScrolled[index] == $(".bounceSticky").eq(index)?.offset()?.top) {
                 if (!lastAnimated[index]) {
-                    $(".colTitle").eq($(this).attr("data-col")).addClass("animateShadowBottom")
+                    $(".colTitle").eq(parseInt($(this).attr("data-col") ?? "0")).addClass("animateShadowBottom")
                         .on("animationend", function () {
+                            console.log($(this).attr("data-col")); // TODO
                             $(this).removeClass('animateShadowBottom');
                         });
                     $(".bounceSticky").eq(index)
@@ -96,7 +97,7 @@ const App: React.FC = () => {
                     lastAnimated[index] = 1;
                 }
             } else {
-                lastScrolled[index] = $(".bounceSticky").eq(index).offset().top;
+                lastScrolled[index] = $(".bounceSticky").eq(index)?.offset()?.top ?? 0;
                 lastAnimated[index] = 0;
             }
         });
@@ -186,6 +187,7 @@ const App: React.FC = () => {
             }
             return (
             <a
+              href={"#" + item.id.toString()}
               style={
                 {
                   zIndex: (skillTag.z ?? 1) + 3, // default 4
