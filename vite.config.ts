@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: "/sticky-portfolio/",
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ['scrollreveal'], // To get packages from local server in dev mode
+  },
 })

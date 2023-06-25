@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import portfolioData from "./assets/portfolio.json";
 import NavBoard from "./navBoard";
 import $ from "jquery";
-import ScrollReveal from 'scrollreveal'
+import ScrollReveal from 'scrollreveal';
 
 type Timeline = {
   [key: string]: string | number | boolean | Array<SkillTag> | Array<externalLink>;
@@ -104,7 +104,7 @@ const App: React.FC = () => {
         //console.log(lastScrolled);
     });
 
-    // scroll animations // TODO scroll issue
+    // scroll animations
     ScrollReveal().reveal('.innerContent', { container: $(".mainParent"), delay: 300, origin: 'left', distance: '30px', easing: 'ease-in'});
     ScrollReveal().reveal('.linkBadge', { container: $(".mainParent"), delay: 600, origin: 'top', distance: '30px', easing: 'ease-in', scale: 0.5});
     ScrollReveal().reveal('.filterSticky', { container: $(".mainParent"), delay: 600, origin: 'right', distance: '30px', easing: 'ease-in', scale: 0.5});
