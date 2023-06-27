@@ -5,6 +5,7 @@ interface Props {
     contacts: Array<ContactItem>;
     skillCategories: Array<string>;
   };
+  timelineCount: number;
 }
 
 type ContactItem = {
@@ -14,7 +15,7 @@ type ContactItem = {
 };
 
 function NavBoard(Props: Props) {
-  const { metadata } = Props;
+  const { metadata, timelineCount } = Props;
   return (
     <div className="nav navResponsive pt-3">
       <div className="container">
@@ -47,8 +48,9 @@ function NavBoard(Props: Props) {
             <div className="colTitle">{category}</div>
           ))}
         </div>
-        <a href="#copyright" className="preSticky dateSticky">
-          Scroll Down
+        <a className="preSticky dateSticky" onClick={()=>{$('.mainParent').stop().animate({ scrollTop: $('.mainParent')[0].scrollHeight }, {duration: (2500+timelineCount*100), easing: 'easeOutBounce'})}}>
+          <div>Scroll Down</div>
+          <i className="fa fa-angle-down animateBounce2 h3"></i>
         </a>
       </div>
     </div>

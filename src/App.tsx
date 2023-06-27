@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import portfolioData from "./assets/portfolio.json";
 import NavBoard from "./navBoard";
+import Copyright from "./copyright";
 import $ from "jquery";
 import ScrollReveal from 'scrollreveal';
 
@@ -142,7 +143,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <NavBoard metadata={portfolioData.metaData}></NavBoard>
+      <NavBoard metadata={portfolioData.metaData} timelineCount={timelines.length}></NavBoard>
 
       <div className="preMainParent"></div>
       <main className="mainParent" lang="en">
@@ -164,13 +165,10 @@ const App: React.FC = () => {
                   {item.category}
                 </a>
               </div>
-              <div className="externalLinks d-none">
-                {
-                  // TODO fix positioning
-                }
+              <div className="externalLinks">
                 {item.externalLinks.map((externalLink) => (
                   <a href={externalLink.url} className="linkBadge">
-                    <i className={"fa fa-" + externalLink.url}></i>
+                    <i className={"fa fa-" + externalLink.icon}></i>
                     <span>{externalLink.title}</span>
                   </a>
                 ))}
@@ -187,6 +185,7 @@ const App: React.FC = () => {
             }
             return (
             <a
+              data-col={skillTag.x.toString()}
               href={"#" + item.id.toString()}
               style={
                 {
@@ -213,14 +212,7 @@ const App: React.FC = () => {
         <a href="#copyright" className="preSticky dateSticky">
           copyright
         </a>
-        <div className="content">
-          <div id="contiuneImprove" className="innerContent">
-            <p>developed by Fatih Yarlıgan</p>
-            <div className="d-flex justify-content-end">
-              <a href="#scrollUp">Scroll Up</a>
-            </div>
-          </div>
-        </div>
+        <Copyright></Copyright>
         <div className="blankArea"></div>
         <div className="footer navResponsive">
           <div className="container p-2">
