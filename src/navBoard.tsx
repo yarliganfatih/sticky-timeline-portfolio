@@ -19,25 +19,15 @@ function NavBoard(Props: Props) {
   return (
     <div className="nav navResponsive pt-3">
       <div className="container">
-        <div className="fixedBio d-flex justify-content-between">
-          <div className="d-flex justify-content-start">
-            <img
-              className="profile pl-1"
-              height="80"
-              src="https://avatars.githubusercontent.com/u/54783062?v=4"
-            />
-            <div className="person pl-3">
-              <h2>{metadata.title}</h2>
-              <h5 className="text-secondary">{metadata.subTitle}</h5>
-            </div>
-          </div>
-          <div className="contact text-right">
-            {metadata.contacts.map((contact) => (
-              <a href={contact.url}>
-                <span>{contact.title}</span>
-                <i className={"fa fa-"+contact.icon}></i>
-              </a>
-            ))}
+        <div className="fixedBio d-flex justify-content-start">
+          <img
+            className="profile pl-1"
+            height="80"
+            src="https://avatars.githubusercontent.com/u/54783062?v=4"
+          />
+          <div className="person pl-3">
+            <h2>{metadata.title}</h2>
+            <h5 className="text-secondary">{metadata.subTitle}</h5>
           </div>
         </div>
         <div className="d-flex justify-content-start mt-2">

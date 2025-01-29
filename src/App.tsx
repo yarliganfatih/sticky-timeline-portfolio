@@ -108,7 +108,7 @@ const App: React.FC = () => {
     // scroll animations
     ScrollReveal().reveal('.innerContent', { container: $(".mainParent"), delay: 300, origin: 'left', distance: '30px', easing: 'ease-in'});
     ScrollReveal().reveal('.linkBadge', { container: $(".mainParent"), delay: 600, origin: 'top', distance: '30px', easing: 'ease-in', scale: 0.5});
-    ScrollReveal().reveal('.filterSticky', { container: $(".mainParent"), delay: 600, origin: 'right', distance: '30px', easing: 'ease-in', scale: 0.5});
+    ScrollReveal().reveal('.categorySticky', { container: $(".mainParent"), delay: 600, origin: 'right', distance: '30px', easing: 'ease-in', scale: 0.5});
     ScrollReveal().reveal('.bounceSticky', { container: $(".mainParent"), delay: 900, origin: 'top', distance: '30px', easing: 'ease-in', scale: 0.5});
     // TODO The first contents may come one by one => increasing delay param
     
@@ -161,7 +161,7 @@ const App: React.FC = () => {
             <div className="innerContent">
               <div className="d-flex">
                 <h4 className="mr-auto">{item.title}</h4>
-                <a className="contentTag ml-3 preSticky skillSticky filterSticky ml-2">
+                <a className="contentTag ml-3 preSticky skillSticky categorySticky ml-2">
                   {item.category}
                 </a>
               </div>
@@ -214,33 +214,41 @@ const App: React.FC = () => {
         </a>
         <Copyright></Copyright>
         <div className="blankArea"></div>
-        <div className="footer navResponsive">
-          <div className="container p-2">
-            <div className="d-flex justify-content-center">
-              <form>
-                <input
-                  className="inputBox"
-                  name="query"
-                  type="text"
-                  placeholder="Search"
-                  onChange={(e) => {
-                    fillSearchTerm(e.target.value);
-                  }}
-                />
-                <input
-                  className="resetButton"
-                  name="reset"
-                  type="reset"
-                  value="x"
-                  onClick={() => {
-                    fillSearchTerm("");
-                  }}
-                />
-              </form>
+      </main>
+      <footer className="footer navResponsive">
+        <div className="container p-2">
+          <div className="d-flex justify-content-between">
+            <form>
+              <input
+                className="inputBox"
+                name="query"
+                type="text"
+                placeholder="Search"
+                onChange={(e) => {
+                  fillSearchTerm(e.target.value);
+                }}
+              />
+              <input
+                className="resetButton"
+                name="reset"
+                type="reset"
+                value="x"
+                onClick={() => {
+                  fillSearchTerm("");
+                }}
+              />
+            </form>
+            <div className="contact d-flex justify-content-end">
+              {portfolioData.metaData.contacts.map((contact) => (
+                <a href={contact.url}>
+                  <span>{contact.title}</span>
+                  <i className={"fa fa-"+contact.icon}></i>
+                </a>
+              ))}
             </div>
           </div>
         </div>
-      </main>
+      </footer>
     </>
   );
 };
