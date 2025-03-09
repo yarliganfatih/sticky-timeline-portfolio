@@ -14,6 +14,19 @@ body {
   --colorSchema4: 37, 152, 176; /* Cyan Cornflower Blue */
   --colorSchema5: 59, 212, 176; /* Eucalyptus */
   --colorSchema6: 172, 245, 115; /* Inchworm */
+  
+  /* Global Variables (Default Parameters) */
+  --stickyPosition: sticky;
+  --navMaxHeight: 216px;
+  --navAnimation: navOpening;
+  --innerNavAnimation: innerNavOpening;
+}
+
+.hiddenNavBoard {
+  --stickyPosition: static;
+  --navMaxHeight: 66px;
+  --navAnimation: navClosing;
+  --innerNavAnimation: innerNavClosing;
 }
 
 body {
@@ -52,10 +65,11 @@ body {
   animation-duration: 600ms;
 }
 .nav {
+  float: left;
   position: fixed;
   top: 0;
   width: 100%;
-  height: 216px;
+  height: var(--navMaxHeight);
   background-color: black;
   border-bottom: 5px solid rgb(var(--baseColorRGB), 0.3);
   z-index: 2;
@@ -69,7 +83,7 @@ body {
     rgba(0, 0, 0, 0.4) 75%
   );
   box-shadow: 0 2px 2px -2px rgb(34 34 68);
-  animation-name: navOpening;
+  animation-name: var(--navAnimation);
   animation-duration: 600ms;
   animation-timing-function: ease-out;
 }
@@ -80,8 +94,24 @@ body {
   }
 }
 .nav .container {
-  animation-name: innerNavOpening;
-  animation-duration: 1200ms;
+}
+.nav .right {
+  position: absolute;
+  right: 0;
+  background: url('assets/bg/nav_right.png');
+  background-size: cover;
+  width: 450px;
+  height: 100%;
+  border-radius: 0 0 15px 0;
+}
+.navToggle {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 .navBottomBorder {
   position: fixed;
@@ -91,14 +121,14 @@ body {
   width: 1140px;
   z-index: 9;
   box-shadow: 0 5px 20px 2px rgb(34 34 68);
-  animation-name: innerNavOpening;
+  animation-name: var(--innerNavAnimation);
   animation-duration: 1200ms;
 }
 .fixedBio {
   white-space: nowrap;
-  position: absolute;
-  top: 100px;
-  left: 140px;
+  position: relative;
+  top: -50px;
+  left: 100px;
   opacity: 0.35;
   height: 84px;
   max-height: 84px;
@@ -114,7 +144,11 @@ body {
 }
 
 .nav .container {
+  margin-top: 1rem;
   padding: 15px;
+}
+.contact {
+  opacity: 0.75;
 }
 .contact a {
   border: 1px solid #007bff;
@@ -131,7 +165,7 @@ body {
 .contact a i {
   font-size: larger;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
   .contact a span {
     display: none;
   }
@@ -219,7 +253,7 @@ body {
   background: black;
 }
 .sticky {
-  position: sticky;
+  position: var(--stickyPosition);
   z-index: 4;
 }
 .stickyPrimary {
@@ -444,10 +478,18 @@ body {
 
 @keyframes navOpening {
   0% {
-    height: 0;
+    height: 66px;
   }
   100% {
-    height: 300px;
+    height: 216px;
+  }
+}
+@keyframes navClosing {
+  0% {
+    height: 216px;
+  }
+  100% {
+    height: 66px;
   }
 }
 @keyframes footerOpening {
@@ -467,6 +509,17 @@ body {
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes innerNavClosing {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 

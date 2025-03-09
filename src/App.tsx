@@ -87,7 +87,6 @@ const App: React.FC = () => {
                 if (!lastAnimated[index]) {
                     $(".colTitle").eq(parseInt($(this).attr("data-col") ?? "0")).addClass("animateShadowBottom")
                         .on("animationend", function () {
-                            console.log($(this).attr("data-col")); // TODO
                             $(this).removeClass('animateShadowBottom');
                         });
                     $(".bounceSticky").eq(index)
@@ -143,7 +142,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <NavBoard metadata={portfolioData.metaData} timelineCount={timelines.length}></NavBoard>
+      <NavBoard metaData={portfolioData.metaData} timelineCount={timelines.length}></NavBoard>
 
       <div className="preMainParent"></div>
       <main className="mainParent" lang="en">
