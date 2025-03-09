@@ -93,8 +93,6 @@ body {
     transform: translateX(-30px);
   }
 }
-.nav .container {
-}
 .nav .right {
   position: absolute;
   right: 0;
